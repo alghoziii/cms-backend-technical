@@ -52,6 +52,11 @@ func (nc *NewsController) CreateNews(ctx *gin.Context) {
 	ctx.JSON(http.StatusCreated, gin.H{"id": newNews.ID})
 }
 
+// @Summary Buat berita baru
+// @Tags news
+// @Param body body dto.NewsRequest true "Data berita"
+// @Success 200 {object} dto.NewsResponse
+// @Router /news/{id} [put]
 func (nc *NewsController) UpdateNews(ctx *gin.Context) {
 	newsId := ctx.Param("id")
 	var payload *dto.NewsRequest
@@ -82,7 +87,7 @@ func (nc *NewsController) UpdateNews(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, gin.H{"status": "success"})
 }
 
-// @Summary Daftar semua berita
+// @Summary List semua berita
 // @Tags news
 // @Success 200 {array} dto.NewsResponse
 // @Router /news [get]
@@ -108,6 +113,11 @@ func (nc *NewsController) FindNews(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, gin.H{"data": response})
 }
 
+// @Summary Detail Berita
+// @Tags news
+// @Param id path int true "Data Berita"
+// @Success 200 {object} dto.NewsResponse
+// @Router /news/{id} [get]
 func (nc *NewsController) FindNewsById(ctx *gin.Context) {
 	newsId := ctx.Param("id")
 
@@ -127,6 +137,11 @@ func (nc *NewsController) FindNewsById(ctx *gin.Context) {
 	})
 }
 
+// @Summary Hapus Berita
+// @Tags news
+// @Param id path int true "Data Berita"
+// @Success 200 {object} map[string]interface{}
+// @Router /news/{id} [delete]
 func (nc *NewsController) DeleteNews(ctx *gin.Context) {
 	newsId := ctx.Param("id")
 

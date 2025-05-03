@@ -1,10 +1,11 @@
 package main
 
 import (
+	"log"
+
 	"github.com/alghoziii/cms-backend-technical/config"
 	_ "github.com/alghoziii/cms-backend-technical/docs"
 	"github.com/alghoziii/cms-backend-technical/routes"
-	"log"
 )
 
 // @title CMS API
@@ -19,7 +20,6 @@ func main() {
 		log.Fatalf("Failed to load config: %v", err)
 	}
 
-	// Initialize DB
 	db, err := config.InitDB()
 	if err != nil {
 		log.Fatalf("Failed to initialize database: %v", err)
@@ -32,10 +32,10 @@ func main() {
 		sqlDB.Close()
 	}()
 
-	// Setup routes
+
 	router := routes.SetupRouter(db)
 
-	// Start server
+
 	log.Printf("Server running on port %s", cfg.AppPort)
 	log.Fatal(router.Run(":" + cfg.AppPort))
 }

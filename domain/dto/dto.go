@@ -1,6 +1,5 @@
 package dto
 
-// Auth DTOs
 type LoginRequest struct {
 	Username string `json:"username" binding:"required"`
 	Password string `json:"password" binding:"required"`
@@ -10,7 +9,6 @@ type LoginResponse struct {
 	Token string `json:"token"`
 }
 
-// Category DTOs
 type CategoryRequest struct {
 	Name string `json:"name" binding:"required"`
 }
@@ -20,7 +18,6 @@ type CategoryResponse struct {
 	Name string `json:"name"`
 }
 
-// News DTOs
 type NewsRequest struct {
 	Title      string `json:"title" binding:"required"`
 	Content    string `json:"content" binding:"required"`
@@ -35,7 +32,6 @@ type NewsResponse struct {
 	UserID     uint   `json:"user_id"`
 }
 
-// CustomPage DTOs
 type CustomPageRequest struct {
 	URL     string `json:"url" binding:"required"`
 	Content string `json:"content" binding:"required"`
@@ -48,7 +44,6 @@ type CustomPageResponse struct {
 	UserID  uint   `json:"user_id"`
 }
 
-// Comment DTOs
 type CommentRequest struct {
 	Name    string `json:"name" binding:"required"`
 	Comment string `json:"comment" binding:"required"`

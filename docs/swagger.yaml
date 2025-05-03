@@ -1,6 +1,51 @@
 basePath: /
 definitions:
-  github_com_alghoziii_cms-backend-technical_domain_dto.LoginRequest:
+  dto.CategoryRequest:
+    properties:
+      name:
+        type: string
+    required:
+    - name
+    type: object
+  dto.CategoryResponse:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+    type: object
+  dto.CommentRequest:
+    properties:
+      comment:
+        type: string
+      name:
+        type: string
+    required:
+    - comment
+    - name
+    type: object
+  dto.CustomPageRequest:
+    properties:
+      content:
+        type: string
+      url:
+        type: string
+    required:
+    - content
+    - url
+    type: object
+  dto.CustomPageResponse:
+    properties:
+      content:
+        type: string
+      id:
+        type: integer
+      url:
+        type: string
+      user_id:
+        type: integer
+    type: object
+  dto.LoginRequest:
     properties:
       password:
         type: string
@@ -10,10 +55,36 @@ definitions:
     - password
     - username
     type: object
-  github_com_alghoziii_cms-backend-technical_domain_dto.LoginResponse:
+  dto.LoginResponse:
     properties:
       token:
         type: string
+    type: object
+  dto.NewsRequest:
+    properties:
+      category_id:
+        type: integer
+      content:
+        type: string
+      title:
+        type: string
+    required:
+    - category_id
+    - content
+    - title
+    type: object
+  dto.NewsResponse:
+    properties:
+      category_id:
+        type: integer
+      content:
+        type: string
+      id:
+        type: integer
+      title:
+        type: string
+      user_id:
+        type: integer
     type: object
 host: localhost:8080
 info:
@@ -22,38 +93,285 @@ info:
   title: CMS API
   version: "1.0"
 paths:
-  /login:
-    post:
-      consumes:
-      - application/json
-      description: Authenticate user and get JWT token
-      parameters:
-      - description: Login credentials
-        in: body
-        name: request
-        required: true
-        schema:
-          $ref: '#/definitions/github_com_alghoziii_cms-backend-technical_domain_dto.LoginRequest'
-      produces:
-      - application/json
+  /categories:
+    get:
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/github_com_alghoziii_cms-backend-technical_domain_dto.LoginResponse'
-        "400":
-          description: Bad Request
-          schema:
-            additionalProperties:
-              type: string
-            type: object
-        "401":
-          description: Unauthorized
-          schema:
-            additionalProperties:
-              type: string
-            type: object
-      summary: User login
+            items:
+              $ref: '#/definitions/dto.CategoryResponse'
+            type: array
+      summary: List kategori
       tags:
-      - auth
+      - categories
+    post:
+      parameters:
+      - description: Data kategori
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/dto.CategoryRequest'
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/dto.CategoryResponse'
+      summary: Buat kategori baru
+      tags:
+      - categories
+  /categories/{id}:
+    delete:
+      parameters:
+      - description: Category ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Hapus kategori
+      tags:
+      - categories
+    get:
+      parameters:
+      - description: Category ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.CategoryResponse'
+      summary: Detail kategori
+      tags:
+      - categories
+    put:
+      parameters:
+      - description: Category ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Data kategori
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/dto.CategoryRequest'
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Update kategori
+      tags:
+      - categories
+  /login:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Login data
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/dto.LoginRequest'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.LoginResponse'
+      summary: Login user
+      tags:
+      - login
+  /news:
+    get:
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/dto.NewsResponse'
+            type: array
+      summary: List semua berita
+      tags:
+      - news
+    post:
+      parameters:
+      - description: Data berita
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/dto.NewsRequest'
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/dto.NewsResponse'
+      summary: Buat berita baru
+      tags:
+      - news
+  /news/{id}:
+    delete:
+      parameters:
+      - description: Data Berita
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Hapus Berita
+      tags:
+      - news
+    get:
+      parameters:
+      - description: Data Berita
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.NewsResponse'
+      summary: Detail Berita
+      tags:
+      - news
+    put:
+      parameters:
+      - description: Data berita
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/dto.NewsRequest'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.NewsResponse'
+      summary: Buat berita baru
+      tags:
+      - news
+  /news/{id}/comments:
+    post:
+      parameters:
+      - description: News ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Komentar
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/dto.CommentRequest'
+      responses:
+        "201":
+          description: Created
+      summary: Tambah komentar
+      tags:
+      - comments
+  /pages:
+    get:
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/dto.CustomPageResponse'
+            type: array
+      summary: Daftar halaman Page
+      tags:
+      - pages
+    post:
+      parameters:
+      - description: Data Pages
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/dto.CustomPageRequest'
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/dto.CustomPageResponse'
+      summary: Buat Page baru
+      tags:
+      - pages
+  /pages/{id}:
+    delete:
+      parameters:
+      - description: Pages ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Hapus Pages
+      tags:
+      - pages
+    get:
+      parameters:
+      - description: Page ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/dto.CustomPageResponse'
+            type: array
+      summary: Detail halaman Page
+      tags:
+      - pages
+    put:
+      parameters:
+      - description: Pages ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Data Pages
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/dto.CustomPageRequest'
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Update Pages
+      tags:
+      - pages
 swagger: "2.0"

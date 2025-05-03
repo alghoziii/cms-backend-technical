@@ -1,12 +1,13 @@
 package controllers
 
 import (
+	"net/http"
+	"strconv"
+
 	"github.com/alghoziii/cms-backend-technical/domain/dto"
 	"github.com/alghoziii/cms-backend-technical/domain/models"
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
-	"net/http"
-	"strconv"
 )
 
 type CommentController struct {
@@ -52,6 +53,7 @@ func (cc *CommentController) CreateComment(ctx *gin.Context) {
 	}
 	ctx.JSON(http.StatusCreated, gin.H{"status": "success"})
 }
+
 
 func (cc *CommentController) FindCommentsByNewsId(ctx *gin.Context) {
 	newsId := ctx.Param("id")

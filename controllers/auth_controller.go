@@ -19,7 +19,7 @@ func NewAuthController(DB *gorm.DB) AuthController {
 }
 
 // @Summary Login user
-// @Tags auth
+// @Tags login
 // @Accept json
 // @Param body body dto.LoginRequest true "Login data"
 // @Success 200 {object} dto.LoginResponse

@@ -17,6 +17,11 @@ func NewCustomPageController(DB *gorm.DB) CustomPageController {
 	return CustomPageController{DB}
 }
 
+// @Summary Buat Page baru
+// @Tags pages
+// @Param body body dto.CustomPageRequest true "Data Pages"
+// @Success 201 {object} dto.CustomPageResponse
+// @Router /pages [post]
 func (cpc *CustomPageController) CreateCustomPage(ctx *gin.Context) {
 	var payload *dto.CustomPageRequest
 
@@ -46,6 +51,12 @@ func (cpc *CustomPageController) CreateCustomPage(ctx *gin.Context) {
 	ctx.JSON(http.StatusCreated, gin.H{"id": newPage.ID})
 }
 
+// @Summary Update Pages
+// @Tags pages
+// @Param id path int true "Pages ID"
+// @Param body body dto.CustomPageRequest true "Data Pages"
+// @Success 200 {object} map[string]interface{}
+// @Router /pages/{id} [put]
 func (cpc *CustomPageController) UpdateCustomPage(ctx *gin.Context) {
 	pageId := ctx.Param("id")
 	var payload *dto.CustomPageRequest
@@ -75,9 +86,9 @@ func (cpc *CustomPageController) UpdateCustomPage(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, gin.H{"status": "success"})
 }
 
-// @Summary Daftar halaman custom
+// @Summary Daftar halaman Page
 // @Tags pages
-// @Success 200 {array} dto.PageResponse
+// @Success 200 {array} dto.CustomPageResponse
 // @Router /pages [get]
 func (cpc *CustomPageController) FindCustomPages(ctx *gin.Context) {
 	var pages []models.CustomPage
@@ -100,6 +111,11 @@ func (cpc *CustomPageController) FindCustomPages(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, gin.H{"data": response})
 }
 
+// @Summary Detail halaman Page
+// @Tags pages
+// @Param id path int true "Page ID"
+// @Success 200 {array} dto.CustomPageResponse
+// @Router /pages/{id} [get]
 func (cpc *CustomPageController) FindCustomPageById(ctx *gin.Context) {
 	pageId := ctx.Param("id")
 
@@ -118,6 +134,11 @@ func (cpc *CustomPageController) FindCustomPageById(ctx *gin.Context) {
 	})
 }
 
+// @Summary Hapus Pages
+// @Tags pages
+// @Param id path int true "Pages ID"
+// @Success 200 {object} map[string]interface{}
+// @Router /pages/{id} [delete]
 func (cpc *CustomPageController) DeleteCustomPage(ctx *gin.Context) {
 	pageId := ctx.Param("id")
 

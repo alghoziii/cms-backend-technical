@@ -2,10 +2,11 @@ package config
 
 import (
 	"fmt"
+	"log"
+
 	"github.com/alghoziii/cms-backend-technical/domain/models"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
-	"log"
 )
 
 func InitDB() (*gorm.DB, error) {
@@ -19,10 +20,7 @@ func InitDB() (*gorm.DB, error) {
 		return nil, fmt.Errorf("failed to connect database: %v", err)
 	}
 
-	log.Println("Database connected successfully")
 
-	// Tambahkan log untuk debugging
-	log.Println("Running database migrations...")
 
 	err = db.AutoMigrate(
 		&models.User{},

@@ -12,17 +12,14 @@ import (
 func SetupRouter(db *gorm.DB) *gin.Engine {
 	router := gin.Default()
 
-	// Swagger
 	router.GET("/docs/*any", ginSwagger.WrapHandler(
 		swaggerFiles.Handler,
 		ginSwagger.DefaultModelsExpandDepth(-1),
 	))
 
-	// Auth routes
 	authController := controllers.NewAuthController(db)
 	router.POST("/login", authController.Login)
 
-	// Category routes
 	categoryController := controllers.NewCategoryController(db)
 	categoryRoutes := router.Group("/categories")
 	{
@@ -34,7 +31,6 @@ func SetupRouter(db *gorm.DB) *gin.Engine {
 		categoryRoutes.DELETE("/:id", categoryController.DeleteCategory)
 	}
 
-	// News routes
 	newsController := controllers.NewNewsController(db)
 	newsRoutes := router.Group("/news")
 	{
@@ -46,7 +42,7 @@ func SetupRouter(db *gorm.DB) *gin.Engine {
 		newsRoutes.DELETE("/:id", newsController.DeleteNews)
 	}
 
-	// Comment routes
+	
 	commentController := controllers.NewCommentController(db)
 	commentRoutes := router.Group("/news/:id/comments")
 	{
@@ -54,7 +50,6 @@ func SetupRouter(db *gorm.DB) *gin.Engine {
 		commentRoutes.POST("/", commentController.CreateComment)
 	}
 
-	// Custom Page routes
 	customPageController := controllers.NewCustomPageController(db)
 	pageRoutes := router.Group("/pages")
 	{

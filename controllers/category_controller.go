@@ -1,11 +1,12 @@
 package controllers
 
 import (
+	"net/http"
+
 	"github.com/alghoziii/cms-backend-technical/domain/dto"
 	"github.com/alghoziii/cms-backend-technical/domain/models"
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
-	"net/http"
 )
 
 type CategoryController struct {
@@ -70,7 +71,7 @@ func (cc *CategoryController) UpdateCategory(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, gin.H{"status": "success"})
 }
 
-// @Summary Daftar kategori
+// @Summary List kategori
 // @Tags categories
 // @Success 200 {array} dto.CategoryResponse
 // @Router /categories [get]

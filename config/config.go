@@ -1,10 +1,11 @@
 package config
 
 import (
+	"os"
+
 	"github.com/alghoziii/cms-backend-technical/domain/models"
 	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
-	"os"
 
 	"github.com/joho/godotenv"
 )
@@ -19,7 +20,7 @@ type Config struct {
 	JWTSecret  string
 }
 
-var Cfg *Config // 🔥 Ini variable globalnya
+var Cfg *Config 
 
 func LoadConfig() (*Config, error) {
 	_ = godotenv.Load()
@@ -39,7 +40,7 @@ func LoadConfig() (*Config, error) {
 		JWTSecret:  getEnv("JWT_SECRET", "secret"),
 	}
 
-	Cfg = config // 🔥 Assign ke global variable
+	Cfg = config 
 	return config, nil
 }
 
