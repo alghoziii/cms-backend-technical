@@ -99,7 +99,8 @@ REST API for Content Management System using Gin, GORM, PostgreSQL, JWT Auth, an
     - Swagger : http://localhost:8080/docs/index.html
       
 3. API Aplikasi : http://localhost:8080/
-   ![ERD Diagram](https://ibb.co.com/JWFSBf9z)
+  
+4.  ![ERD Diagram](https://drive.google.com/file/d/1FwyRbKIbg3ctGjTeijTPNRhCjfjhhleV/view?usp=sharing)
 
 
 
