@@ -55,25 +55,3 @@ func (cc *CommentController) CreateComment(ctx *gin.Context) {
 }
 
 
-func (cc *CommentController) FindCommentsByNewsId(ctx *gin.Context) {
-	newsId := ctx.Param("id")
-
-	var comments []models.Comment
-	results := cc.DB.Where("news_id = ?", newsId).Find(&comments)
-	if results.Error != nil {
-		ctx.JSON(http.StatusInternalServerError, gin.H{"error": results.Error.Error()})
-		return
-	}
-
-	var response []dto.CommentResponse
-	for _, comment := range comments {
-		response = append(response, dto.CommentResponse{
-			ID:      comment.ID,
-			Name:    comment.Name,
-			Comment: comment.Comment,
-			NewsID:  comment.NewsID,
-		})
-	}
-
-	ctx.JSON(http.StatusOK, gin.H{"data": response})
-}
