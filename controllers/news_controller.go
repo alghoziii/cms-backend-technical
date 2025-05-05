@@ -91,7 +91,7 @@ func (nc *NewsController) UpdateNews(ctx *gin.Context) {
 // @Tags news
 // @Success 200 {array} dto.NewsResponse
 // @Router /news [get]
-func (nc *NewsController) FindNews(ctx *gin.Context) {
+func (nc *NewsController) AllNews(ctx *gin.Context) {
 	var news []models.News
 	results := nc.DB.Preload("Category").Preload("User").Find(&news)
 	if results.Error != nil {
@@ -118,7 +118,7 @@ func (nc *NewsController) FindNews(ctx *gin.Context) {
 // @Param id path int true "Data Berita"
 // @Success 200 {object} dto.NewsResponse
 // @Router /news/{id} [get]
-func (nc *NewsController) FindNewsById(ctx *gin.Context) {
+func (nc *NewsController) NewsById(ctx *gin.Context) {
 	newsId := ctx.Param("id")
 
 	var news models.News

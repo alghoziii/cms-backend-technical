@@ -24,7 +24,7 @@ func SetupRouter(db *gorm.DB) *gin.Engine {
 	categoryRoutes := router.Group("/categories")
 	{
 		categoryRoutes.GET("/", categoryController.AllCategory)
-		categoryRoutes.GET("/:id", categoryController.FindCategoryById)
+		categoryRoutes.GET("/:id", categoryController.CategoryById)
 		categoryRoutes.Use(middlewares.AuthMiddleware())
 		categoryRoutes.POST("/", categoryController.CreateCategory)
 		categoryRoutes.PUT("/:id", categoryController.UpdateCategory)
@@ -34,8 +34,8 @@ func SetupRouter(db *gorm.DB) *gin.Engine {
 	newsController := controllers.NewNewsController(db)
 	newsRoutes := router.Group("/news")
 	{
-		newsRoutes.GET("/", newsController.FindNews)
-		newsRoutes.GET("/:id", newsController.FindNewsById)
+		newsRoutes.GET("/", newsController.AllNews)
+		newsRoutes.GET("/:id", newsController.NewsById)
 		newsRoutes.Use(middlewares.AuthMiddleware())
 		newsRoutes.POST("/", newsController.CreateNews)
 		newsRoutes.PUT("/:id", newsController.UpdateNews)
@@ -52,8 +52,8 @@ func SetupRouter(db *gorm.DB) *gin.Engine {
 	customPageController := controllers.NewCustomPageController(db)
 	pageRoutes := router.Group("/pages")
 	{
-		pageRoutes.GET("/", customPageController.FindCustomPages)
-		pageRoutes.GET("/:id", customPageController.FindCustomPageById)
+		pageRoutes.GET("/", customPageController.AllCustomPages)
+		pageRoutes.GET("/:id", customPageController.PageById)
 		pageRoutes.Use(middlewares.AuthMiddleware())
 		pageRoutes.POST("/", customPageController.CreateCustomPage)
 		pageRoutes.PUT("/:id", customPageController.UpdateCustomPage)

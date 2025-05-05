@@ -1,13 +1,14 @@
 package controllers
 
 import (
+	"net/http"
+
 	domain "github.com/alghoziii/cms-backend-technical/domain/dto"
 	"github.com/alghoziii/cms-backend-technical/domain/models"
 	"github.com/alghoziii/cms-backend-technical/utils"
 	"github.com/gin-gonic/gin"
 	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
-	"net/http"
 )
 
 type AuthController struct {
@@ -41,7 +42,7 @@ func (ac *AuthController) Login(ctx *gin.Context) {
 
 	err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(payload.Password))
 	if err != nil {
-		ctx.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid username or password"})
+		ctx.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid password"})
 		return
 	}
 

@@ -90,7 +90,7 @@ func (cpc *CustomPageController) UpdateCustomPage(ctx *gin.Context) {
 // @Tags pages
 // @Success 200 {array} dto.CustomPageResponse
 // @Router /pages [get]
-func (cpc *CustomPageController) FindCustomPages(ctx *gin.Context) {
+func (cpc *CustomPageController) AllCustomPages(ctx *gin.Context) {
 	var pages []models.CustomPage
 	results := cpc.DB.Preload("User").Find(&pages)
 	if results.Error != nil {
@@ -116,7 +116,7 @@ func (cpc *CustomPageController) FindCustomPages(ctx *gin.Context) {
 // @Param id path int true "Page ID"
 // @Success 200 {array} dto.CustomPageResponse
 // @Router /pages/{id} [get]
-func (cpc *CustomPageController) FindCustomPageById(ctx *gin.Context) {
+func (cpc *CustomPageController) PageById(ctx *gin.Context) {
 	pageId := ctx.Param("id")
 
 	var page models.CustomPage

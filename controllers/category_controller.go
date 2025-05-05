@@ -99,7 +99,7 @@ func (cc *CategoryController) AllCategory(ctx *gin.Context) {
 // @Param id path int true "Category ID"
 // @Success 200 {object} dto.CategoryResponse
 // @Router /categories/{id} [get]
-func (cc *CategoryController) FindCategoryById(ctx *gin.Context) {
+func (cc *CategoryController) CategoryById(ctx *gin.Context) {
 	categoryId := ctx.Param("id")
 
 	var category models.Category
