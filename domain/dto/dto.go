@@ -49,9 +49,3 @@ type CommentRequest struct {
 	Comment string `json:"comment" binding:"required"`
 }
 
-type CommentResponse struct {
-	ID      uint   `json:"id"`
-	Name    string `json:"name"`
-	Comment string `json:"content"`
-	NewsID  uint   `json:"news_id"`
-}
