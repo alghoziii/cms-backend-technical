@@ -75,7 +75,7 @@ func (cc *CategoryController) UpdateCategory(ctx *gin.Context) {
 // @Tags categories
 // @Success 200 {array} dto.CategoryResponse
 // @Router /categories [get]
-func (cc *CategoryController) FindCategories(ctx *gin.Context) {
+func (cc *CategoryController) AllCategory(ctx *gin.Context) {
 	var categories []models.Category
 	results := cc.DB.Find(&categories)
 	if results.Error != nil {

@@ -23,7 +23,7 @@ func SetupRouter(db *gorm.DB) *gin.Engine {
 	categoryController := controllers.NewCategoryController(db)
 	categoryRoutes := router.Group("/categories")
 	{
-		categoryRoutes.GET("/", categoryController.FindCategories)
+		categoryRoutes.GET("/", categoryController.AllCategory)
 		categoryRoutes.GET("/:id", categoryController.FindCategoryById)
 		categoryRoutes.Use(middlewares.AuthMiddleware())
 		categoryRoutes.POST("/", categoryController.CreateCategory)
@@ -46,7 +46,6 @@ func SetupRouter(db *gorm.DB) *gin.Engine {
 	commentController := controllers.NewCommentController(db)
 	commentRoutes := router.Group("/news/:id/comments")
 	{
-		commentRoutes.GET("/", commentController.FindCommentsByNewsId)
 		commentRoutes.POST("/", commentController.CreateComment)
 	}
 
